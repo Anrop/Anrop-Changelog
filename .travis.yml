@@ -1,0 +1,17 @@
+language: go
+
+go:
+  - 1.7
+
+matrix:
+  fast_finish: true
+
+install:
+  - go get github.com/golang/lint/golint
+  - go get github.com/constabulary/gb/...
+
+script:
+  - gb build
+  - golint src/
+  - diff -u <(echo -n) <(gofmt -d src/)
+  - go tool vet src
